@@ -1,0 +1,31 @@
+{
+    "profile": {
+        "name": "My Portfolio",
+        "role": "Creative Developer",
+        "bio": "Building digital experiences with a focus on motion and minimalism."
+    },
+    "projects": [
+        {
+            "id": "1",
+            "title": "Project Alpha",
+            "description": "A dark-themed dashboard application.",
+            "link": "#",
+            "tags": [
+                "Next.js",
+                "CSS"
+            ]
+        }
+    ],
+    "skills": [
+        {
+            "id": "1",
+            "name": "Next.js",
+            "level": "Advanced"
+        },
+        {
+            "id": "2",
+            "name": "Design",
+            "level": "Intermediate"
+        }
+    ]
+}
