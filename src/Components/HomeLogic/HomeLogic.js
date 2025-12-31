@@ -1,12 +1,11 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import IntroAnimation from './IntroAnimation';
+import IntroAnimation from '../IntroAnimation/IntroAnimation';
 
 export default function HomeLogic({ children }) {
     const [showIntro, setShowIntro] = useState(true);
 
-    // Optional: Disable scroll while intro is showing
     useEffect(() => {
         if (showIntro) {
             document.body.style.overflow = 'hidden';

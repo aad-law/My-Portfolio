@@ -1,0 +1,83 @@
+.card {
+    position: relative;
+    background-color: #121212;
+    border: 1px solid #2a2a2a;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: border-color 0.3s;
+}
+
+.card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.cardContent {
+    padding: 1.5rem;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #e0e0e0;
+    transition: color 0.3s;
+}
+
+.card:hover .title {
+    color: white;
+}
+
+.linkButton {
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 9999px;
+    transition: background-color 0.3s;
+}
+
+.linkButton:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.description {
+    color: #a0a0a0;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+    overflow: hidden;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    background-color: #1a1a1a;
+    border-radius: 0.25rem;
+    color: #888;
+    border: 1px solid #333;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.card:hover .overlay {
+    opacity: 1;
+}

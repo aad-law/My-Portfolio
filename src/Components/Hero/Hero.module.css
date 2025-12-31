@@ -1,0 +1,55 @@
+.section {
+    margin-bottom: 8rem;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .section {
+        text-align: left;
+    }
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(to bottom, white, #666);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .title {
+        font-size: 4.5rem;
+    }
+}
+
+.role {
+    font-size: 1.5rem;
+    color: #888;
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+@media (min-width: 768px) {
+    .role {
+        font-size: 1.875rem;
+    }
+}
+
+.bio {
+    max-width: 42rem;
+    color: #a0a0a0;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 768px) {
+    .bio {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

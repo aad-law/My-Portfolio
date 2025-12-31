@@ -1,4 +1,4 @@
-import HomeLogic from '@/Components/HomeLogic';
+import HomeLogic from '@/components/HomeLogic/HomeLogic';
 
 export default function Home() {
   return (

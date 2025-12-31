@@ -1,6 +1,8 @@
+import styles from './Footer.module.css';
+
 export default function Footer() {
     return (
-        <footer className="py-8 text-center text-sm text-[var(--text-secondary)] border-t border-[var(--border)] mt-20">
+        <footer className={styles.footer}>
             {/* <p>© {new Date().getFullYear()} Portfolio. Built with Next.js.</p> */}
         </footer>
     );

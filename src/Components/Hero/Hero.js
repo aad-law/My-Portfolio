@@ -1,15 +1,16 @@
 'use client';
 import { motion } from 'framer-motion';
+import styles from './Hero.module.css';
 
 export default function Hero({ name, role, bio }) {
     return (
-        <section className="mb-32 text-center md:text-left">
+        <section className={styles.section}>
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 2.2, ease: "easeOut" }} // Delay to sync with Intro
+                transition={{ duration: 0.8, delay: 2.2, ease: "easeOut" }}
             >
-                <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-[#666] mb-6">
+                <h1 className={styles.title}>
                     {name}
                 </h1>
             </motion.div>
@@ -19,7 +20,7 @@ export default function Hero({ name, role, bio }) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 2.4, ease: "easeOut" }}
             >
-                <h2 className="text-2xl md:text-3xl text-[#888] mb-8 font-light">
+                <h2 className={styles.role}>
                     {role}
                 </h2>
             </motion.div>
@@ -29,7 +30,7 @@ export default function Hero({ name, role, bio }) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 2.6, ease: "easeOut" }}
             >
-                <p className="max-w-2xl text-[#a0a0a0] text-lg leading-relaxed mx-auto md:mx-0">
+                <p className={styles.bio}>
                     {bio}
                 </p>
             </motion.div>

@@ -1,0 +1,243 @@
+.container {
+    min-height: 100vh;
+    background-color: black;
+    color: white;
+    padding: 2rem;
+    padding-bottom: 8rem;
+}
+
+.header {
+    max-width: 56rem;
+    margin: 0 auto 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerTitle {
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+
+.headerActions {
+    display: flex;
+    gap: 1rem;
+}
+
+.saveButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: white;
+    color: black;
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    transition: background-color 0.3s;
+}
+
+.saveButton:hover {
+    background-color: rgb(229, 229, 229);
+}
+
+.saveButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.logoutButton {
+    padding: 0.5rem;
+    background-color: #1a1a1a;
+    border-radius: 9999px;
+    color: rgb(248, 113, 113);
+    transition: background-color 0.3s;
+}
+
+.logoutButton:hover {
+    background-color: rgba(248, 113, 113, 0.1);
+}
+
+.tabContainer {
+    max-width: 56rem;
+    margin: 0 auto 2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.tab {
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    text-transform: capitalize;
+    transition: all 0.3s;
+}
+
+.tabActive {
+    background-color: #333;
+    color: white;
+}
+
+.tabInactive {
+    color: #666;
+}
+
+.tabInactive:hover {
+    color: white;
+}
+
+.content {
+    max-width: 56rem;
+    margin: 0 auto;
+}
+
+.grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.projectCard {
+    background-color: #121212;
+    border: 1px solid #2a2a2a;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.projectHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.projectTitleInput {
+    background-color: transparent;
+    font-size: 1.25rem;
+    font-weight: 700;
+    outline: none;
+    border-bottom: 1px solid transparent;
+    width: 100%;
+    margin-right: 1rem;
+    transition: border-color 0.3s;
+}
+
+.projectTitleInput:focus {
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.deleteButton {
+    color: rgb(239, 68, 68);
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s;
+}
+
+.deleteButton:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.textarea {
+    background-color: #1a1a1a;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    color: #aaa;
+    width: 100%;
+    resize: none;
+    height: 6rem;
+    outline: none;
+}
+
+.inputGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.input {
+    background-color: #1a1a1a;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    color: #888;
+}
+
+.addButton {
+    width: 100%;
+    padding: 1rem;
+    border: 2px dashed #2a2a2a;
+    border-radius: 0.75rem;
+    color: #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+}
+
+.addButton:hover {
+    border-color: #444;
+    color: #666;
+}
+
+.skillsGrid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .skillsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.skillCard {
+    background-color: #121212;
+    border: 1px solid #2a2a2a;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.skillContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.skillNameInput {
+    background-color: transparent;
+    font-weight: 500;
+    outline: none;
+    width: 100%;
+}
+
+.skillLevelSelect {
+    background-color: #1a1a1a;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: #888;
+    outline: none;
+}
+
+.addSkillButton {
+    width: 100%;
+    height: 100%;
+    min-height: 100px;
+    border: 2px dashed #2a2a2a;
+    border-radius: 0.75rem;
+    color: #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+}
+
+.addSkillButton:hover {
+    border-color: #444;
+    color: #666;
+}
