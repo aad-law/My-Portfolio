@@ -1,14 +1,14 @@
 "use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, User, Briefcase, Layers } from 'lucide-react';
+import { Home, User, Briefcase, Layers, Contact } from 'lucide-react';
 import { motion } from 'framer-motion';
 import styles from './Navbar.module.css';
 
 const navItems = [
     { name: 'Home', path: '/', icon: Home },
     { name: 'Projects', path: '/projects', icon: Briefcase },
-    { name: 'Skills', path: '/skills', icon: Layers },
+    { name: 'contact', path: '/contact', icon: Contact },
 ];
 
 export default function Navbar() {
