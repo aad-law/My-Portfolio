@@ -36,18 +36,20 @@ export default function IntroAnimation({ onComplete }) {
             </div>
 
             <div className={styles.content}>
+                {/* Name */}
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                     className={styles.brandName}
                 >
-                    PORTFOLIO
+                    Aadesh Lawate
                 </motion.h1>
 
+                {/* Progress Section */}
                 <div className={styles.progressSection}>
                     <div className={styles.progressInfo}>
-                        <span>Loading Interface...</span>
+                        <span>Loading Portfolio...</span>
                         <span>{count}%</span>
                     </div>
 
