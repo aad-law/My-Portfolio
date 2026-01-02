@@ -1,5 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Github, Instagram, Mail, Linkedin } from 'lucide-react';
 import styles from './Hero.module.css';
@@ -31,10 +32,10 @@ export default function Hero({ name, intro }) {
                         {intro || "I am a web developer skilled in building responsive and functional websites using modern web technologies. I work with HTML, CSS, JavaScript, React, and Next.js to develop clean user interfaces and reliable web applications, focusing on performance, usability, and maintainable code."}
                     </p>
 
-                    <button className={styles.ctaButton}>
-                        Let's get started
+                    <Link href="/projects" className={styles.ctaButton}>
+                        View My Work
                         <ArrowRight size={20} />
-                    </button>
+                    </Link>
                 </motion.div>
 
                 {/* Right Section - Profile Photo */}
