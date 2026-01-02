@@ -7,19 +7,24 @@ export default function HomeLogic({ children }) {
     const [showIntro, setShowIntro] = useState(false);
 
     useEffect(() => {
+        // Enforce no scrolling on Home Page
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+
         // Check if intro has been shown in this session
         const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
 
         if (!hasSeenIntro) {
-            // First time in this session - show intro
             setShowIntro(true);
-            // Prevent scrolling during intro and on home page
-            document.body.style.overflow = 'hidden';
-            document.documentElement.style.overflow = 'hidden';
         } else {
-            // Already seen intro in this session - skip it
             setShowIntro(false);
         }
+
+        // Cleanup: Allow scrolling again when leaving Home Page
+        return () => {
+            document.body.style.overflow = 'auto';
+            document.documentElement.style.overflow = 'auto';
+        };
     }, []);
 
     const handleIntroComplete = () => {

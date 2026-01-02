@@ -1,22 +1,24 @@
 .container {
     min-height: 100vh;
+    padding: 2rem;
     background-color: black;
     color: white;
-    padding: 2rem;
-    padding-bottom: 8rem;
 }
 
 .header {
-    max-width: 56rem;
-    margin: 0 auto 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .headerTitle {
-    font-size: 1.875rem;
+    font-size: 2rem;
     font-weight: 700;
+    color: white;
 }
 
 .headerActions {
@@ -28,216 +30,294 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background-color: white;
-    color: black;
-    padding: 0.5rem 1.5rem;
-    border-radius: 9999px;
-    font-weight: 700;
-    transition: background-color 0.3s;
+    background-color: #22c55e;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-.saveButton:hover {
-    background-color: rgb(229, 229, 229);
+.saveButton:hover:not(:disabled) {
+    background-color: #16a34a;
 }
 
 .saveButton:disabled {
-    opacity: 0.5;
+    opacity: 0.7;
     cursor: not-allowed;
 }
 
 .logoutButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1f2937;
+    color: #9ca3af;
     padding: 0.5rem;
-    background-color: #1a1a1a;
-    border-radius: 9999px;
-    color: rgb(248, 113, 113);
-    transition: background-color 0.3s;
+    border-radius: 0.5rem;
+    border: 1px solid #374151;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
 .logoutButton:hover {
-    background-color: rgba(248, 113, 113, 0.1);
+    color: #ef4444;
+    border-color: #ef4444;
 }
 
+/* Tabs */
 .tabContainer {
-    max-width: 56rem;
-    margin: 0 auto 2rem;
     display: flex;
     gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #374151;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .tab {
-    padding: 0.5rem 1.5rem;
-    border-radius: 9999px;
-    text-transform: capitalize;
-    transition: all 0.3s;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    transition: all 0.2s;
+    font-size: 1rem;
 }
 
 .tabActive {
-    background-color: #333;
-    color: white;
+    color: #22c55e;
+    border-bottom-color: #22c55e;
 }
 
 .tabInactive {
-    color: #666;
+    color: #9ca3af;
 }
 
 .tabInactive:hover {
     color: white;
 }
 
-.content {
-    max-width: 56rem;
-    margin: 0 auto;
-}
-
+/* Content Grid */
 .grid {
     display: grid;
+    grid-template-columns: 1fr;
     gap: 1.5rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.projectCard {
-    background-color: #121212;
-    border: 1px solid #2a2a2a;
-    padding: 1.5rem;
-    border-radius: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.projectHeader {
-    display: flex;
-    justify-content: space-between;
-}
-
-.projectTitleInput {
-    background-color: transparent;
-    font-size: 1.25rem;
-    font-weight: 700;
-    outline: none;
-    border-bottom: 1px solid transparent;
-    width: 100%;
-    margin-right: 1rem;
-    transition: border-color 0.3s;
-}
-
-.projectTitleInput:focus {
-    border-bottom-color: rgba(255, 255, 255, 0.2);
-}
-
-.deleteButton {
-    color: rgb(239, 68, 68);
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s;
-}
-
-.deleteButton:hover {
-    background-color: rgba(239, 68, 68, 0.1);
-}
-
-.textarea {
-    background-color: #1a1a1a;
-    padding: 0.75rem;
-    border-radius: 0.25rem;
-    color: #aaa;
-    width: 100%;
-    resize: none;
-    height: 6rem;
-    outline: none;
-}
-
-.inputGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-}
-
-.input {
-    background-color: #1a1a1a;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
-    color: #888;
-}
-
-.addButton {
-    width: 100%;
-    padding: 1rem;
-    border: 2px dashed #2a2a2a;
-    border-radius: 0.75rem;
-    color: #444;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    transition: all 0.3s;
-}
-
-.addButton:hover {
-    border-color: #444;
-    color: #666;
-}
-
-.skillsGrid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 1rem;
-}
-
-@media (min-width: 768px) {
-    .skillsGrid {
+@media (min-width: 1024px) {
+    .grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-.skillCard {
-    background-color: #121212;
-    border: 1px solid #2a2a2a;
-    padding: 1rem;
+/* Project Card */
+.projectCard {
+    background-color: #111827;
+    border: 1px solid #374151;
     border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.projectCard:focus-within {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 1px #22c55e;
+}
+
+.cardHeader {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
     gap: 1rem;
 }
 
-.skillContent {
-    flex: 1;
+.titleInput {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    /* Make bg visible */
+    border: 1px solid #374151 !important;
+    /* Make border visible */
+    border-radius: 0.375rem;
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 700;
+    width: 100%;
+    outline: none;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s;
+}
+
+.titleInput:focus {
+    border-color: #22c55e !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.deleteButton {
+    color: #9ca3af;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: color 0.2s;
+    margin-top: 0.5rem;
+}
+
+.deleteButton:hover {
+    color: #ef4444;
+}
+
+/* Form Fields */
+.fieldGroup {
+    margin-bottom: 1rem;
+}
+
+.label {
+    display: block;
+    color: #9ca3af;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.input {
+    width: 100%;
+    background-color: #1f2937;
+    border: 1px solid #4b5563;
+    /* Lighter border for visibility */
+    color: white;
+    padding: 0.75rem;
+    /* Larger padding */
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input:focus {
+    border-color: #22c55e;
+    background-color: #2d3748;
+}
+
+.fileInput {
+    width: 100%;
+    background-color: #1f2937;
+    border: 1px dashed #4b5563;
+    color: #9ca3af;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+.fileInput:hover {
+    border-color: #22c55e;
+    color: white;
+}
+
+.textarea {
+    width: 100%;
+    background-color: #1f2937;
+    border: 1px solid #4b5563;
+    color: #d1d5db;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    outline: none;
+    min-height: 80px;
+    resize: vertical;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.textarea:focus {
+    border-color: #22c55e;
+    background-color: #2d3748;
+}
+
+/* Image Preview */
+.imagePreviewContainer {
+    margin-top: 0.5rem;
+    width: 100%;
+    height: 150px;
+    background-color: #111;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #374151;
+}
+
+.imagePreview {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.noImage {
+    color: #6b7280;
+    font-size: 0.875rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 0.5rem;
 }
 
-.skillNameInput {
-    background-color: transparent;
-    font-weight: 500;
-    outline: none;
-    width: 100%;
+/* Compact Grid for Link/Tags */
+.row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-.skillLevelSelect {
-    background-color: #1a1a1a;
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    color: #888;
-    outline: none;
+.col {
+    flex: 1;
+    min-width: 200px;
 }
 
-.addSkillButton {
-    width: 100%;
-    height: 100%;
-    min-height: 100px;
-    border: 2px dashed #2a2a2a;
+/* Buttons */
+.addButton {
+    grid-column: 1 / -1;
+    background-color: #1f2937;
+    border: 2px dashed #374151;
+    color: #9ca3af;
+    padding: 1rem;
     border-radius: 0.75rem;
-    color: #444;
+    cursor: pointer;
+    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    transition: all 0.3s;
+    transition: all 0.2s;
 }
 
-.addSkillButton:hover {
-    border-color: #444;
-    color: #666;
+.addButton:hover {
+    border-color: #22c55e;
+    color: #22c55e;
+    background-color: rgba(34, 197, 94, 0.05);
+}
+
+/* Skills Grid specifically */
+.skillsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }

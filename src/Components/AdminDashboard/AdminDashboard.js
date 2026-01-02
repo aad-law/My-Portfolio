@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Save, Trash2, LogOut } from 'lucide-react';
+import { Plus, Save, Trash2, LogOut, Image as ImageIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import styles from './AdminDashboard.module.css';
 
@@ -13,31 +13,68 @@ export default function AdminDashboard({ initialData }) {
 
     const handleSave = async () => {
         setSaving(true);
-        await fetch('/api/data', {
-            method: 'POST',
-            body: JSON.stringify(data),
-        });
+        try {
+            await fetch('/api/data', {
+                method: 'POST',
+                body: JSON.stringify(data),
+            });
+            alert('Saved successfully!');
+            router.refresh();
+        } catch (error) {
+            alert('Failed to save');
+        }
         setSaving(false);
-        alert('Saved successfully!');
-        router.refresh();
     };
 
     const removeItem = (type, id) => {
-        setData(prev => ({
-            ...prev,
-            [type]: prev[type].filter(item => item.id !== id)
-        }));
+        if (confirm('Are you sure you want to delete this item?')) {
+            setData(prev => ({
+                ...prev,
+                [type]: prev[type].filter(item => item.id !== id)
+            }));
+        }
     };
 
     const addItem = (type) => {
         const newItem = type === 'projects'
-            ? { id: Date.now().toString(), title: "New Project", description: "Desc", link: "#", tags: ["Tag"] }
+            ? {
+                id: Date.now().toString(),
+                title: "New Project",
+                description: "Project description...",
+                link: "#",
+                image: "https://images.unsplash.com/photo-1557821552-17105176677c",
+                tags: ["React"]
+            }
             : { id: Date.now().toString(), name: "New Skill", level: "Beginner" };
 
         setData(prev => ({
             ...prev,
             [type]: [...prev[type], newItem]
         }));
+    };
+
+    const handleImageUpload = async (e, type, id) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData,
+            });
+            const data = await res.json();
+            if (data.success) {
+                updateItem(type, id, 'image', data.url);
+            } else {
+                alert('Upload failed');
+            }
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            alert('Upload failed');
+        }
     };
 
     const updateItem = (type, id, field, value) => {
@@ -77,95 +114,145 @@ export default function AdminDashboard({ initialData }) {
                         onClick={() => setActiveTab(tab)}
                         className={`${styles.tab} ${activeTab === tab ? styles.tabActive : styles.tabInactive}`}
                     >
-                        {tab}
+                        {tab.charAt(0).toUpperCase() + tab.slice(1)}
                     </button>
                 ))}
             </div>
 
-            <div className={styles.content}>
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={activeTab}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className={styles.grid}
-                    >
-                        {activeTab === 'projects' && (
-                            <>
-                                {data.projects.map((project) => (
-                                    <div key={project.id} className={styles.projectCard}>
-                                        <div className={styles.projectHeader}>
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={activeTab}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className={activeTab === 'projects' ? styles.grid : styles.skillsGrid}
+                >
+                    {activeTab === 'projects' && (
+                        <>
+                            {data.projects.map((project) => (
+                                <div key={project.id} className={styles.projectCard}>
+                                    <div className={styles.cardHeader}>
+                                        <input
+                                            value={project.title}
+                                            onChange={(e) => updateItem('projects', project.id, 'title', e.target.value)}
+                                            className={styles.titleInput}
+                                            placeholder="Project Title"
+                                        />
+                                        <button onClick={() => removeItem('projects', project.id)} className={styles.deleteButton}>
+                                            <Trash2 size={18} />
+                                        </button>
+                                    </div>
+
+                                    {/* Image Input & Preview */}
+                                    <div className={styles.fieldGroup}>
+                                        <label className={styles.label}>Project Image</label>
+                                        <div className={styles.row}>
                                             <input
-                                                value={project.title}
-                                                onChange={(e) => updateItem('projects', project.id, 'title', e.target.value)}
-                                                className={styles.projectTitleInput}
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) => handleImageUpload(e, 'projects', project.id)}
+                                                className={styles.fileInput}
                                             />
-                                            <button onClick={() => removeItem('projects', project.id)} className={styles.deleteButton}>
-                                                <Trash2 size={18} />
-                                            </button>
+                                            {/* Fallback to URL if needed */}
+                                            <input
+                                                value={project.image || ''}
+                                                onChange={(e) => updateItem('projects', project.id, 'image', e.target.value)}
+                                                className={styles.input}
+                                                placeholder="Or paste URL..."
+                                                style={{ width: '40%' }}
+                                            />
                                         </div>
+                                        <div className={styles.imagePreviewContainer}>
+                                            {project.image ? (
+                                                <img src={project.image} alt="Preview" className={styles.imagePreview} onError={(e) => e.target.style.display = 'none'} />
+                                            ) : (
+                                                <span className={styles.noImage}><ImageIcon size={24} /> No Image</span>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.fieldGroup}>
+                                        <label className={styles.label}>Description</label>
                                         <textarea
                                             value={project.description}
                                             onChange={(e) => updateItem('projects', project.id, 'description', e.target.value)}
                                             className={styles.textarea}
+                                            placeholder="Description..."
                                         />
-                                        <div className={styles.inputGrid}>
+                                    </div>
+
+                                    <div className={styles.row}>
+                                        <div className={styles.col}>
+                                            <label className={styles.label}>Demo Link</label>
                                             <input
-                                                value={project.link}
+                                                value={project.link || ''}
                                                 onChange={(e) => updateItem('projects', project.id, 'link', e.target.value)}
                                                 className={styles.input}
-                                                placeholder="Link URL"
+                                                placeholder="#"
                                             />
+                                        </div>
+                                        <div className={styles.col}>
+                                            <label className={styles.label}>GitHub Link</label>
                                             <input
-                                                value={project.tags.join(', ')}
-                                                onChange={(e) => updateTags(project.id, e.target.value)}
+                                                value={project.github || ''}
+                                                onChange={(e) => updateItem('projects', project.id, 'github', e.target.value)}
                                                 className={styles.input}
-                                                placeholder="Tags (comma separated)"
+                                                placeholder="#"
                                             />
                                         </div>
                                     </div>
-                                ))}
-                                <button onClick={() => addItem('projects')} className={styles.addButton}>
-                                    <Plus size={20} /> Add Project
-                                </button>
-                            </>
-                        )}
 
-                        {activeTab === 'skills' && (
-                            <div className={styles.skillsGrid}>
-                                {data.skills.map((skill) => (
-                                    <div key={skill.id} className={styles.skillCard}>
-                                        <div className={styles.skillContent}>
-                                            <input
-                                                value={skill.name}
-                                                onChange={(e) => updateItem('skills', skill.id, 'name', e.target.value)}
-                                                className={styles.skillNameInput}
-                                            />
-                                            <select
-                                                value={skill.level}
-                                                onChange={(e) => updateItem('skills', skill.id, 'level', e.target.value)}
-                                                className={styles.skillLevelSelect}
-                                            >
-                                                <option>Beginner</option>
-                                                <option>Intermediate</option>
-                                                <option>Advanced</option>
-                                                <option>Expert</option>
-                                            </select>
-                                        </div>
+                                    <div style={{ marginTop: '1rem' }}>
+                                        <label className={styles.label}>Tags</label>
+                                        <input
+                                            value={project.tags ? project.tags.join(', ') : ''}
+                                            onChange={(e) => updateTags(project.id, e.target.value)}
+                                            className={styles.input}
+                                            placeholder="React, Next.js, CSS"
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+                            <button onClick={() => addItem('projects')} className={styles.addButton}>
+                                <Plus size={20} /> Add New Project
+                            </button>
+                        </>
+                    )}
+
+                    {activeTab === 'skills' && (
+                        <>
+                            {data.skills.map((skill) => (
+                                <div key={skill.id} className={styles.projectCard}>
+                                    <div className={styles.cardHeader}>
+                                        <input
+                                            value={skill.name}
+                                            onChange={(e) => updateItem('skills', skill.id, 'name', e.target.value)}
+                                            className={styles.titleInput}
+                                            placeholder="Skill Name"
+                                        />
                                         <button onClick={() => removeItem('skills', skill.id)} className={styles.deleteButton}>
                                             <Trash2 size={16} />
                                         </button>
                                     </div>
-                                ))}
-                                <button onClick={() => addItem('skills')} className={styles.addSkillButton}>
-                                    <Plus size={20} /> Add Skill
-                                </button>
-                            </div>
-                        )}
-                    </motion.div>
-                </AnimatePresence>
-            </div>
+                                    <select
+                                        value={skill.level}
+                                        onChange={(e) => updateItem('skills', skill.id, 'level', e.target.value)}
+                                        className={styles.input}
+                                    >
+                                        <option>Beginner</option>
+                                        <option>Intermediate</option>
+                                        <option>Advanced</option>
+                                        <option>Expert</option>
+                                    </select>
+                                </div>
+                            ))}
+                            <button onClick={() => addItem('skills')} className={styles.addButton}>
+                                <Plus size={20} /> Add New Skill
+                            </button>
+                        </>
+                    )}
+                </motion.div>
+            </AnimatePresence>
         </div>
     );
 }
