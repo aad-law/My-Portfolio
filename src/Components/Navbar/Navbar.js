@@ -7,6 +7,7 @@ import styles from './Navbar.module.css';
 
 const navItems = [
     { name: 'Home', path: '/', icon: Home },
+        {name : 'About', path : '/about', icon : User},
     { name: 'Projects', path: '/projects', icon: Briefcase },
     { name: 'contact', path: '/contact', icon: Contact },
 ];

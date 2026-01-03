@@ -13,6 +13,7 @@
 .heroContent {
     max-width: 800px;
     margin: 0 auto;
+    animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .title {
@@ -35,6 +36,8 @@
     /* padding: 2rem; */
     max-width: 1200px;
     margin: 0 auto;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.2s forwards;
 }
 
 .statsWrapper {
@@ -121,6 +124,8 @@
     padding: 1rem 2rem 6rem;
     max-width: 1200px;
     margin: 0 auto;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.4s forwards;
 }
 
 .projectsGrid {
@@ -341,5 +346,17 @@
 
     .projectsGrid {
         grid-template-columns: 1fr;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
