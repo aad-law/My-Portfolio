@@ -2,20 +2,20 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styles from './GitHubCalendar.module.css';
 
-const GitHubCalendar = ({ username, year, themeColor }) => {
+const GitHubCalendar = ({ username, year, themeColor, onRefresh }) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [retryCount, setRetryCount] = useState(0);
 
-    const fetchData = useCallback(async (isRetry = false) => {
+    const fetchData = useCallback(async (isRetry = false, isForce = false) => {
         if (!isRetry) {
             setLoading(true);
             setError(null);
         }
 
         try {
-            const res = await fetch(`/api/github?username=${username}${year ? `&year=${year}` : ''}`);
+            const res = await fetch(`/api/github?username=${username}${year ? `&year=${year}` : ''}${isForce ? '&refresh=true' : ''}`);
             if (!res.ok) throw new Error('Failed to fetch');
 
             const resData = await res.json();
@@ -24,10 +24,15 @@ const GitHubCalendar = ({ username, year, themeColor }) => {
             setData(resData);
             setLoading(false);
             setRetryCount(0);
+
+            // If this was a manual refresh, also trigger the parent's refresh
+            if (isForce && onRefresh) {
+                onRefresh();
+            }
         } catch (err) {
             console.error("Error fetching GitHub data:", err);
 
-            if (retryCount < 3) {
+            if (retryCount < 3 && !isForce) {
                 // Exponential backoff
                 const delay = Math.pow(2, retryCount) * 1000;
                 setTimeout(() => {
@@ -103,7 +108,19 @@ const GitHubCalendar = ({ username, year, themeColor }) => {
                         </div>
                     ))}
                 </div>
-               
+                <button
+                    className={styles.refreshBtn}
+                    onClick={() => fetchData(false, true)}
+                    disabled={loading}
+                    title="Refresh contributions"
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        className={`${styles.refreshIcon} ${loading ? styles.spinning : ''}`}
+                    >
+                        <path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+                    </svg>
+                </button>
             </div>
 
             <div className={styles.calendarBody}>
@@ -138,7 +155,7 @@ const GitHubCalendar = ({ username, year, themeColor }) => {
 
             <div className={styles.footer}>
                 <div className={styles.learnLink}>
-                       
+
                 </div>
                 <div className={styles.legend}>
                     <span>Less</span>

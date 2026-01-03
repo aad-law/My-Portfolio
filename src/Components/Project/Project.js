@@ -59,6 +59,18 @@ const Project = () => {
             .catch(err => console.error("Error fetching contributions:", err));
     }, [hasMounted, githubSettings.username, selectedYear]);
 
+    const refreshHeader = () => {
+        if (!hasMounted || !selectedYear) return;
+        fetch(`/api/github?username=${githubSettings.username}&year=${selectedYear}&refresh=true`)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.total && data.total[selectedYear]) {
+                    setTotalContributions(data.total[selectedYear]);
+                }
+            })
+            .catch(err => console.error("Error refreshing contributions:", err));
+    };
+
     return (
         <div className={styles.pageContainer}>
             {/* Hero Section */}
@@ -91,6 +103,7 @@ const Project = () => {
                                         username={githubSettings.username}
                                         year={selectedYear}
                                         themeColor={githubSettings.themeColor}
+                                        onRefresh={refreshHeader}
                                     />
                                 </div>
                             </div>
