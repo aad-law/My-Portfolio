@@ -14,12 +14,17 @@ export default function AdminDashboard({ initialData }) {
     const handleSave = async () => {
         setSaving(true);
         try {
-            await fetch('/api/data', {
+            const res = await fetch('/api/data', {
                 method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
-            alert('Saved successfully!');
-            router.refresh();
+            if (res.ok) {
+                alert('Saved successfully!');
+                router.refresh();
+            } else {
+                throw new Error('Save failed');
+            }
         } catch (error) {
             alert('Failed to save');
         }
@@ -108,7 +113,7 @@ export default function AdminDashboard({ initialData }) {
             </header>
 
             <div className={styles.tabContainer}>
-                {['projects', 'skills'].map((tab) => (
+                {['projects', 'skills', 'github'].map((tab) => (
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
@@ -250,6 +255,47 @@ export default function AdminDashboard({ initialData }) {
                                 <Plus size={20} /> Add New Skill
                             </button>
                         </>
+                    )}
+
+                    {activeTab === 'github' && (
+                        <div className={styles.projectCard}>
+                            <h2 style={{ marginBottom: '1.5rem', fontSize: '1.25rem' }}>GitHub Settings</h2>
+                            <div className={styles.fieldGroup}>
+                                <label className={styles.label}>GitHub Username</label>
+                                <input
+                                    value={data.github?.username || ''}
+                                    onChange={(e) => setData(prev => ({
+                                        ...prev,
+                                        github: { ...prev.github, username: e.target.value }
+                                    }))}
+                                    className={styles.input}
+                                    placeholder="Username"
+                                />
+                            </div>
+                            <div className={styles.fieldGroup}>
+                                <label className={styles.label}>Graph Theme Color</label>
+                                <div className={styles.row}>
+                                    <input
+                                        type="color"
+                                        value={data.github?.themeColor || '#22c55e'}
+                                        onChange={(e) => setData(prev => ({
+                                            ...prev,
+                                            github: { ...prev.github, themeColor: e.target.value }
+                                        }))}
+                                        style={{ width: '50px', height: '40px', padding: '2px', background: 'transparent', border: 'none' }}
+                                    />
+                                    <input
+                                        value={data.github?.themeColor || '#22c55e'}
+                                        onChange={(e) => setData(prev => ({
+                                            ...prev,
+                                            github: { ...prev.github, themeColor: e.target.value }
+                                        }))}
+                                        className={styles.input}
+                                        style={{ flex: 1 }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     )}
                 </motion.div>
             </AnimatePresence>

@@ -6,82 +6,6 @@
   },
   "projects": [
     {
-      "id": "1",
-      "title": "E-Commerce Platform",
-      "description": "Full-stack e-commerce application with payment integration, user authentication, and admin dashboard.",
-      "image": "https://images.unsplash.com/photo-1557821552-17105176677c?w=600&h=400&fit=crop",
-      "tags": [
-        "React",
-        "Node.js",
-        "MongoDB",
-        "Stripe"
-      ],
-      "github": "https://github.com/aad-law/ecommerce",
-      "demo": "https://demo.example.com",
-      "category": "Full Stack",
-      "link": "https://demo.example.com"
-    },
-    {
-      "id": "2",
-      "title": "Task Management App",
-      "description": "Collaborative task manager with real-time updates, drag-and-drop interface, and team features.",
-      "image": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop",
-      "tags": [
-        "React",
-        "Firebase",
-        "Tailwind"
-      ],
-      "github": "https://github.com/aad-law/task-app",
-      "demo": "https://demo.example.com",
-      "category": "React",
-      "link": "https://demo.example.com"
-    },
-    {
-      "id": "3",
-      "title": "Weather Dashboard",
-      "description": "Real-time weather application with location search, 7-day forecast, and interactive maps.",
-      "image": "https://images.unsplash.com/photo-1592210454359-9043f067919b?w=600&h=400&fit=crop",
-      "tags": [
-        "JavaScript",
-        "API",
-        "Chart.js"
-      ],
-      "github": "https://github.com/aad-law/weather",
-      "demo": "https://demo.example.com",
-      "category": "JavaScript",
-      "link": "https://demo.example.com"
-    },
-    {
-      "id": "4",
-      "title": "Portfolio CMS",
-      "description": "Content management system for portfolio websites with drag-and-drop builder and SEO optimization.",
-      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
-      "tags": [
-        "Next.js",
-        "PostgreSQL",
-        "Prisma"
-      ],
-      "github": "https://github.com/aad-law/cms",
-      "demo": "https://demo.example.com",
-      "category": "Full Stack",
-      "link": "https://demo.example.com"
-    },
-    {
-      "id": "5",
-      "title": "Social Media Analytics",
-      "description": "Analytics dashboard for tracking social media metrics with data visualization and reporting.",
-      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-      "tags": [
-        "React",
-        "D3.js",
-        "Express"
-      ],
-      "github": "https://github.com/aad-law/analytics",
-      "demo": "https://demo.example.com",
-      "category": "React",
-      "link": "https://demo.example.com"
-    },
-    {
       "id": "6",
       "title": "Markdown Blog Engine",
       "description": "Lightweight blog platform with markdown support, syntax highlighting, and RSS feeds.",
@@ -95,6 +19,17 @@
       "demo": "https://demo.example.com",
       "category": "JavaScript",
       "link": "https://demo.example.com"
+    },
+    {
+      "id": "1767429260618",
+      "title": "VBanner",
+      "description": "Project description...wsdfghjkdufyukb dk uig uidh",
+      "link": "#kdbkbikd",
+      "image": "/uploads/1767429277804_Screenshot_2024-04-22_190153.png",
+      "tags": [
+        "React"
+      ],
+      "github": "kdvbkdb/.com d iodh"
     }
   ],
   "skills": [
@@ -118,5 +53,10 @@
       "name": "CSS/Tailwind",
       "level": "Advanced"
     }
-  ]
+  ],
+  "github": {
+    "username": "aad-law",
+    "themeColor": "#22c55e",
+    "showStats": true
+  }
 }
