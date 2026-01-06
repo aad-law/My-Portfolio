@@ -13,7 +13,10 @@ export async function GET(request) {
         const url = `https://github-contributions-api.jogruber.de/v4/${username}${year ? `?y=${year}` : ''}`;
         
         const response = await fetch(url, {
-            next: { revalidate: 300 } // Next.js cache: 5 minutes
+            cache: 'no-store',
+            headers: {
+                'Cache-Control': 'no-cache'
+            }
         });
 
         if (!response.ok) {
@@ -27,7 +30,7 @@ export async function GET(request) {
         
         return NextResponse.json(data, {
             headers: {
-                'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600'
+                'Cache-Control': 'no-store, must-revalidate'
             }
         });
     } catch (error) {
