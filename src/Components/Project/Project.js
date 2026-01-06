@@ -20,7 +20,7 @@ const Project = () => {
         setSelectedYear(currentYear);
 
         const years = [];
-        for (let i = currentYear; i >= currentYear - 5; i--) {
+        for (let i = currentYear; i >= currentYear - 3; i--) {
             years.push(i);
         }
         setAvailableYears(years);
