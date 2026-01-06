@@ -10,12 +10,15 @@ export async function GET(request) {
     }
 
     try {
-        const url = `https://github-contributions-api.jogruber.de/v4/${username}${year ? `?y=${year}` : ''}`;
+        // Add timestamp to bypass their cache
+        const timestamp = Date.now();
+        const url = `https://github-contributions-api.jogruber.de/v4/${username}?y=${year || new Date().getFullYear()}&t=${timestamp}`;
         
         const response = await fetch(url, {
             cache: 'no-store',
             headers: {
-                'Cache-Control': 'no-cache'
+                'Cache-Control': 'no-cache',
+                'Pragma': 'no-cache'
             }
         });
 
@@ -30,7 +33,8 @@ export async function GET(request) {
         
         return NextResponse.json(data, {
             headers: {
-                'Cache-Control': 'no-store, must-revalidate'
+                'Cache-Control': 'no-store, must-revalidate',
+                'Pragma': 'no-cache'
             }
         });
     } catch (error) {

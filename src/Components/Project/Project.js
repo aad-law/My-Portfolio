@@ -87,6 +87,22 @@ const Project = () => {
 
             {hasMounted && selectedYear && (
                 <>
+                    
+
+                    {/* Projects Grid */}
+                    <div className={styles.gridContainer}>
+                        {loading ? (
+                            <div style={{ textAlign: 'center', color: '#8b949e', padding: '2rem' }}>Loading projects...</div>
+                        ) : (
+                            <div className={styles.projectsGrid}>
+                                {projects.map(project => (
+                                    <ProjectCard key={project.id} project={project} />
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+
                     {/* GitHub Contributions */}
                     <div className={styles.statsSection}>
                         <div className={styles.statsWrapper}>
@@ -121,19 +137,6 @@ const Project = () => {
                                 ))}
                             </div>
                         </div>
-                    </div>
-
-                    {/* Projects Grid */}
-                    <div className={styles.gridContainer}>
-                        {loading ? (
-                            <div style={{ textAlign: 'center', color: '#8b949e', padding: '2rem' }}>Loading projects...</div>
-                        ) : (
-                            <div className={styles.projectsGrid}>
-                                {projects.map(project => (
-                                    <ProjectCard key={project.id} project={project} />
-                                ))}
-                            </div>
-                        )}
                     </div>
                 </>
             )}
