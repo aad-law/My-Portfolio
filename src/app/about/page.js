@@ -1,4 +1,4 @@
-import About from '../../Components/About/About';
+import About from '../../components/About/About';
 
 export const metadata = {
     title: 'About Me | Portfolio',
