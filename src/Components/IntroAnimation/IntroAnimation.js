@@ -6,7 +6,10 @@ import styles from './IntroAnimation.module.css';
 export default function IntroAnimation({ onComplete }) {
     const [count, setCount] = useState(0);
 
+    const [hasMounted, setHasMounted] = useState(false);
+
     useEffect(() => {
+        setHasMounted(true);
         const duration = 2000;
         const steps = 100;
         const intervalTime = duration / steps;
@@ -24,6 +27,8 @@ export default function IntroAnimation({ onComplete }) {
 
         return () => clearInterval(timer);
     }, [onComplete]);
+
+    if (!hasMounted) return null;
 
     return (
         <motion.div

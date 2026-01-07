@@ -9,8 +9,10 @@ import {
     Globe,
     Smartphone,
     Server,
-    Layers
+    Layers,
+    ArrowRight
 } from 'lucide-react';
+import Link from 'next/link';
 import styles from './About.module.css';
 
 const About = () => {
@@ -82,7 +84,7 @@ const About = () => {
                             transition={{ duration: 1, delay: 0.5 }}
                         >
                             <div className={styles.heroAvatar}>
-                                <Code size={32} color="#6366f1" />
+                                <Code size={32} color="#22c55e" />
                             </div>
                             <p className={styles.heroText}>
                                 I craft digital experiences that blend form and function.
@@ -188,6 +190,22 @@ const About = () => {
                             </motion.div>
                         ))}
                     </div>
+                </div>
+            </section>
+            <section className={styles.ctaSection}>
+                <div className={styles.container}>
+                    <motion.div {...fadeIn}>
+                        <h2>Let's Build Something Together</h2>
+                        <p>Available for freelance projects and collaborations</p>
+
+                        <div className={styles.ctaActions}>
+                            <Link href="/contact" className={styles.primaryBtn}>
+                                Get in Touch <ArrowRight size={18} />
+                            </Link>
+
+
+                        </div>
+                    </motion.div>
                 </div>
             </section>
         </div>
