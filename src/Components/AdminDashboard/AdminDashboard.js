@@ -106,7 +106,7 @@ export default function AdminDashboard({ initialData }) {
                     >
                         <Save size={18} /> {saving ? 'Saving...' : 'Save Changes'}
                     </button>
-                    <a href="/api/auth/logout" className={styles.logoutButton}>
+                    <a href="/api/admin/logout" className={styles.logoutButton}>
                         <LogOut size={20} />
                     </a>
                 </div>

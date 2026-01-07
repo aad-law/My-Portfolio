@@ -1,8 +1,8 @@
 import Contact from '@/components/Contact/Contact';
 
 export const metadata = {
-    title: 'Contact Me | Portfolio',
-    description: 'Get in touch with me for collaborations, freelance projects, or just to say hi.',
+    title: 'Contact | Aadesh Lawate',
+    description: 'Get in touch for collaborations or project inquiries.',
 };
 
 export default function ContactPage() {

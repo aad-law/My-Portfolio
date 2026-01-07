@@ -199,9 +199,18 @@ const About = () => {
                         <p>Available for freelance projects and collaborations</p>
 
                         <div className={styles.ctaActions}>
-                            <Link href="/contact" className={styles.primaryBtn}>
-                                Get in Touch <ArrowRight size={18} />
-                            </Link>
+                            <div className={styles.ctaButtons}>
+                                <Link href="/contact" className={styles.primaryBtn}>
+                                    Get in Touch <ArrowRight size={18} />
+                                </Link>
+                                <a
+                                    href="/assets/resume.pdf"
+                                    download
+                                    className={styles.secondaryBtn}
+                                >
+                                    Download CV
+                                </a>
+                            </div>
 
 
                         </div>

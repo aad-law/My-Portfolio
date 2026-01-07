@@ -5,7 +5,7 @@ import AdminDashboard from '@/components/AdminDashboard/AdminDashboard';
 
 export default async function AdminPage() {
     const cookieStore = await cookies();
-    const token = cookieStore.get('auth_token');
+    const token = cookieStore.get('admin_auth');
 
     if (!token) {
         redirect('/admin/login');
