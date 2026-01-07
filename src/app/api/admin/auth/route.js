@@ -11,7 +11,8 @@ export async function POST(req) {
 
             // Set a simple auth cookie. In a real app, this would be a JWT.
             // For this portfolio, we'll use a simple token.
-            cookies().set('admin_auth', 'true', {
+            const cookieStore = await cookies();
+            cookieStore.set('admin_auth', 'true', {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: 'lax',

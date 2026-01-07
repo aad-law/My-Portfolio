@@ -52,11 +52,16 @@
       "id": "4",
       "name": "CSS/Tailwind",
       "level": "Advanced"
+    },
+    {
+      "id": "1767811615252",
+      "name": "Java",
+      "level": "Advanced"
     }
   ],
   "github": {
     "username": "aad-law",
-    "themeColor": "#22c55e",
+    "themeColor": "#0cac49",
     "showStats": true
   }
 }
