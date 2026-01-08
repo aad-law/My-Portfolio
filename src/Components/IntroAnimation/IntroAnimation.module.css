@@ -22,7 +22,7 @@
     transform: translate(-50%, -50%);
     width: 500px;
     height: 500px;
-    background-color: rgba(88, 28, 135, 0.2);
+    background-color: rgba(28, 135, 30, 0.2);
     border-radius: 50%;
     filter: blur(100px);
 }
@@ -81,6 +81,6 @@
 
 .progressBar {
     height: 100%;
-    background-color: rgb(168, 85, 247);
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
+    background-color: rgb(85, 247, 99);
+    box-shadow: 0 0 15px rgba(93, 247, 85, 0.8);
 }

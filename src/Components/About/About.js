@@ -64,17 +64,26 @@ const About = () => {
 
     React.useEffect(() => {
         setHasMounted(true);
-        fetch('/api/data', { cache: 'no-store' })
-            .then(res => res.json())
-            .then(data => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch('/api/data', { cache: 'no-store' });
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+                const contentType = res.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    throw new TypeError("Oops, we haven't got JSON!");
+                }
+
+                const data = await res.json();
                 if (data.skills) setSkillsData(data.skills);
                 if (data.timeline) setTimelineData(data.timeline);
-                setLoading(false);
-            })
-            .catch(err => {
+            } catch (err) {
                 console.error("Error fetching about data:", err);
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
+        fetchData();
     }, []);
 
     if (!hasMounted || loading) {
@@ -129,7 +138,7 @@ const About = () => {
                 </div>
             </section>
 
-           
+
 
             {/* Skills */}
             <section className={styles.section}>

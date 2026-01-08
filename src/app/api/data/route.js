@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { getData, saveData } from '@/lib/api';
 
 export const dynamic = 'force-dynamic';
@@ -9,6 +10,14 @@ export async function GET() {
 }
 
 export async function POST(request) {
+    // Security Handle: Check for admin authentication
+    const cookieStore = await cookies();
+    const token = cookieStore.get('admin_auth');
+
+    if (!token) {
+        return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     try {
         const body = await request.json();
         const success = await saveData(body);

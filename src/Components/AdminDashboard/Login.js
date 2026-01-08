@@ -21,11 +21,14 @@ export default function Login() {
                 body: JSON.stringify({ password }),
             });
 
+            if (!response.ok) {
+                const text = await response.text();
+                throw new Error(text || 'Authentication failed');
+            }
+
             const data = await response.json();
 
             if (data.success) {
-                // Set cookie or session token here if needed
-                // For now, we'll just redirect to admin
                 window.location.href = '/admin';
             } else {
                 setError('Invalid password. Access denied.');

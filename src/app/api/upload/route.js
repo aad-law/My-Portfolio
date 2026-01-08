@@ -1,9 +1,18 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import path from 'path';
 import { writeFile } from 'fs/promises';
 import fs from 'fs';
 
 export async function POST(request) {
+    // Security Handle: Check for admin authentication
+    const cookieStore = await cookies();
+    const token = cookieStore.get('admin_auth');
+
+    if (!token) {
+        return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const formData = await request.formData();
     const file = formData.get('file');
 
