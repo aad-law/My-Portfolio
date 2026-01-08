@@ -129,41 +129,7 @@ const About = () => {
                 </div>
             </section>
 
-            {/* Philosophy */}
-            <section className={styles.section}>
-                <div className={styles.container}>
-                    <motion.div className={styles.sectionHeader} {...fadeIn}>
-                        <h2 className={styles.sectionTitle}>My Philosophy</h2>
-                    </motion.div>
-
-                    <div className={styles.philosophyGrid}>
-                        <motion.div
-                            className={styles.philosophyItem}
-                            {...fadeIn}
-                            transition={{ delay: 0.1 }}
-                        >
-                            <h3>Simplicity</h3>
-                            <p>I believe in the power of minimalism. Removing the unnecessary to let the essential shine, creating interfaces that are intuitive and clutter-free.</p>
-                        </motion.div>
-                        <motion.div
-                            className={styles.philosophyItem}
-                            {...fadeIn}
-                            transition={{ delay: 0.2 }}
-                        >
-                            <h3>Precision</h3>
-                            <p>Every pixel and every line of code matters. I strive for technical perfection to ensure reliability, accessibility, and high performance.</p>
-                        </motion.div>
-                        <motion.div
-                            className={styles.philosophyItem}
-                            {...fadeIn}
-                            transition={{ delay: 0.3 }}
-                        >
-                            <h3>Innovation</h3>
-                            <p>Constantly exploring new horizons in web technology. Adapting to the latest trends while maintaining timeless design principles.</p>
-                        </motion.div>
-                    </div>
-                </div>
-            </section>
+           
 
             {/* Skills */}
             <section className={styles.section}>
