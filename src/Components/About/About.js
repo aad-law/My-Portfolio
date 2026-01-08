@@ -10,12 +10,51 @@ import {
     Smartphone,
     Server,
     Layers,
-    ArrowRight
+    ArrowRight,
+    Monitor,
+    Coffee,
+    Database,
+    Leaf,
+    Rocket,
+    Atom,
+    FileCode
 } from 'lucide-react';
 import Link from 'next/link';
 import styles from './About.module.css';
 
 const About = () => {
+    const [skillsData, setSkillsData] = React.useState([]);
+    const [timelineData, setTimelineData] = React.useState([]);
+    const [hasMounted, setHasMounted] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
+
+    const iconMap = {
+        code: Code,
+        palette: Palette,
+        zap: Zap,
+        cpu: Cpu,
+        globe: Globe,
+        smartphone: Smartphone,
+        server: Server,
+        layers: Layers,
+        monitor: Monitor,
+        coffee: Coffee,
+        database: Database,
+        leaf: Leaf,
+        rocket: Rocket,
+        atom: Atom,
+        'js-square': FileCode,
+        filecode: FileCode,
+        java: Coffee,
+        react: Atom,
+        javascript: FileCode,
+        html: Code,
+        css: Palette,
+        sql: Database,
+        spring: Leaf,
+        springboot: Rocket
+    };
+
     const fadeIn = {
         initial: { opacity: 0, y: 20 },
         whileInView: { opacity: 1, y: 0 },
@@ -23,37 +62,30 @@ const About = () => {
         transition: { duration: 0.8, ease: "easeOut" }
     };
 
-    const skills = [
-        { name: 'Frontend Arch', icon: Code },
-        { name: 'UI/UX Design', icon: Palette },
-        { name: 'Next.js 15', icon: Zap },
-        { name: 'Backend Logic', icon: Cpu },
-        { name: 'Web Perform', icon: Globe },
-        { name: 'Mobile First', icon: Smartphone },
-        { name: 'Node.js', icon: Server },
-        { name: 'Cloud Infra', icon: Layers }
-    ];
+    React.useEffect(() => {
+        setHasMounted(true);
+        fetch('/api/data', { cache: 'no-store' })
+            .then(res => res.json())
+            .then(data => {
+                if (data.skills) setSkillsData(data.skills);
+                if (data.timeline) setTimelineData(data.timeline);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Error fetching about data:", err);
+                setLoading(false);
+            });
+    }, []);
 
-    const timeline = [
-        {
-            date: '2024 — PRESENT',
-            title: 'Full Stack Architect',
-            company: 'Sanjivani Studios',
-            desc: 'Leading the digital transformation of studio workflows through bespoke web solutions. Focusing on performance-first architecture and seamless user experiences.'
-        },
-        {
-            date: '2023 — 2024',
-            title: 'Creative Developer',
-            company: 'Freelance & Open Source',
-            desc: 'Explored the intersection of design and code. Contributed to various projects focusing on interactive UI and accessible web components.'
-        },
-        {
-            date: '2022 — 2023',
-            title: 'Junior Frontend Developer',
-            company: 'Digital Agency',
-            desc: 'Started the journey into the web. Mastered the fundamentals of HTML, CSS, and modern JavaScript libraries.'
-        }
-    ];
+    if (!hasMounted || loading) {
+        return (
+            <div className={styles.pageContainer} style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={styles.highlight}>
+                    Loading Excellence...
+                </motion.div>
+            </div>
+        );
+    }
 
     return (
         <div className={styles.pageContainer}>
@@ -73,7 +105,7 @@ const About = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
                     >
-                        Elegance <span className={styles.highlight}>in Code</span>
+                        It's <span className={styles.highlight}>Me</span>
                     </motion.h1>
 
                     <div className={styles.heroCardWrapper}>
@@ -144,11 +176,11 @@ const About = () => {
                         transition={{ duration: 1 }}
                     >
                         <div className={styles.skillsGrid}>
-                            {skills.map((skill, index) => {
-                                const Icon = skill.icon;
+                            {skillsData.map((skill, index) => {
+                                const Icon = iconMap[skill.icon?.toLowerCase()] || Code;
                                 return (
                                     <motion.div
-                                        key={index}
+                                        key={skill.id || index}
                                         className={styles.skillItem}
                                         initial={{ opacity: 0 }}
                                         whileInView={{ opacity: 1 }}
@@ -174,9 +206,9 @@ const About = () => {
                     </motion.div>
 
                     <div className={styles.journeyTimeline}>
-                        {timeline.map((item, index) => (
+                        {timelineData.map((item, index) => (
                             <motion.div
-                                key={index}
+                                key={item.id || index}
                                 className={styles.journeyItem}
                                 {...fadeIn}
                                 transition={{ delay: index * 0.2 }}
@@ -192,6 +224,8 @@ const About = () => {
                     </div>
                 </div>
             </section>
+
+            {/* CTA Section */}
             <section className={styles.ctaSection}>
                 <div className={styles.container}>
                     <motion.div {...fadeIn}>
@@ -211,8 +245,6 @@ const About = () => {
                                     Download CV
                                 </a>
                             </div>
-
-
                         </div>
                     </motion.div>
                 </div>

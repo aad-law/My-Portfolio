@@ -16,30 +16,36 @@ const ProjectCard = ({ project }) => {
 
                 {/* Floating Action Buttons */}
                 <div className={styles.floatingButtons}>
-                    <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.floatBtn}
-                    >
-                        <Github size={20} />
-                    </a>
-                    <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.floatBtn}
-                    >
-                        <ExternalLink size={20} />
-                    </a>
+                    {project.github && project.github !== '#' && (
+                        <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.floatBtn}
+                        >
+                            <Github size={20} />
+                        </a>
+                    )}
+                    {project.link && project.link !== '#' && (
+                        <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.floatBtn}
+                        >
+                            <ExternalLink size={20} />
+                        </a>
+                    )}
                 </div>
 
                 {/* Category Badge */}
-                <div className={styles.categoryBadge}>
-                    <span className={styles.badge}>
-                        {project.category}
-                    </span>
-                </div>
+                {project.category && (
+                    <div className={styles.categoryBadge}>
+                        <span className={styles.badge}>
+                            {project.category}
+                        </span>
+                    </div>
+                )}
             </div>
 
             {/* Content */}
@@ -53,7 +59,7 @@ const ProjectCard = ({ project }) => {
 
                 {/* Tags */}
                 <div className={styles.tags}>
-                    {project.tags.map(tag => (
+                    {project.tags && project.tags.map(tag => (
                         <span
                             key={tag}
                             className={styles.tag}
@@ -68,25 +74,29 @@ const ProjectCard = ({ project }) => {
             <div className={styles.cardFooter}>
                 <div className={styles.viewCode}>
                     <Code2 size={16} />
-                    <span>View Code</span>
+                    <span>Project Links</span>
                 </div>
                 <div className={styles.footerLinks}>
-                    <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.footerLink}
-                    >
-                        <Github size={20} />
-                    </a>
-                    <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.footerLink}
-                    >
-                        <ExternalLink size={20} />
-                    </a>
+                    {project.github && project.github !== '#' && (
+                        <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.footerLink}
+                        >
+                            <Github size={20} />
+                        </a>
+                    )}
+                    {project.link && project.link !== '#' && (
+                        <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.footerLink}
+                        >
+                            <ExternalLink size={20} />
+                        </a>
+                    )}
                 </div>
             </div>
         </div>

@@ -41,20 +41,31 @@ export default function AdminDashboard({ initialData }) {
     };
 
     const addItem = (type) => {
-        const newItem = type === 'projects'
-            ? {
+        let newItem;
+        if (type === 'projects') {
+            newItem = {
                 id: Date.now().toString(),
                 title: "New Project",
                 description: "Project description...",
                 link: "#",
                 image: "https://images.unsplash.com/photo-1557821552-17105176677c",
                 tags: ["React"]
-            }
-            : { id: Date.now().toString(), name: "New Skill", level: "Beginner" };
+            };
+        } else if (type === 'skills') {
+            newItem = { id: Date.now().toString(), name: "New Skill", icon: "Code" };
+        } else if (type === 'timeline') {
+            newItem = {
+                id: Date.now().toString(),
+                date: "2024 — 2025",
+                title: "New Position",
+                company: "Company Name",
+                desc: "Description of your experience..."
+            };
+        }
 
         setData(prev => ({
             ...prev,
-            [type]: [...prev[type], newItem]
+            [type]: [...(prev[type] || []), newItem]
         }));
     };
 
@@ -113,7 +124,7 @@ export default function AdminDashboard({ initialData }) {
             </header>
 
             <div className={styles.tabContainer}>
-                {['projects', 'skills', 'github'].map((tab) => (
+                {['projects', 'skills', 'timeline', 'github'].map((tab) => (
                     <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
@@ -130,7 +141,7 @@ export default function AdminDashboard({ initialData }) {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className={activeTab === 'projects' ? styles.grid : styles.skillsGrid}
+                    className={activeTab === 'projects' || activeTab === 'timeline' ? styles.grid : styles.skillsGrid}
                 >
                     {activeTab === 'projects' && (
                         <>
@@ -239,20 +250,71 @@ export default function AdminDashboard({ initialData }) {
                                             <Trash2 size={16} />
                                         </button>
                                     </div>
-                                    <select
-                                        value={skill.level}
-                                        onChange={(e) => updateItem('skills', skill.id, 'level', e.target.value)}
-                                        className={styles.input}
-                                    >
-                                        <option>Beginner</option>
-                                        <option>Intermediate</option>
-                                        <option>Advanced</option>
-                                        <option>Expert</option>
-                                    </select>
+                                    <div className={styles.fieldGroup}>
+                                        <label className={styles.label}>Icon Name (Lucide)</label>
+                                        <input
+                                            value={skill.icon || 'Code'}
+                                            onChange={(e) => updateItem('skills', skill.id, 'icon', e.target.value)}
+                                            className={styles.input}
+                                            placeholder="Code, Zap, Cpu..."
+                                        />
+                                    </div>
                                 </div>
                             ))}
                             <button onClick={() => addItem('skills')} className={styles.addButton}>
                                 <Plus size={20} /> Add New Skill
+                            </button>
+                        </>
+                    )}
+
+                    {activeTab === 'timeline' && (
+                        <>
+                            {(data.timeline || []).map((item) => (
+                                <div key={item.id} className={styles.projectCard}>
+                                    <div className={styles.cardHeader}>
+                                        <input
+                                            value={item.title}
+                                            onChange={(e) => updateItem('timeline', item.id, 'title', e.target.value)}
+                                            className={styles.titleInput}
+                                            placeholder="Job Title"
+                                        />
+                                        <button onClick={() => removeItem('timeline', item.id)} className={styles.deleteButton}>
+                                            <Trash2 size={18} />
+                                        </button>
+                                    </div>
+                                    <div className={styles.row}>
+                                        <div className={styles.col}>
+                                            <label className={styles.label}>Date Range</label>
+                                            <input
+                                                value={item.date}
+                                                onChange={(e) => updateItem('timeline', item.id, 'date', e.target.value)}
+                                                className={styles.input}
+                                                placeholder="2024 — 2025"
+                                            />
+                                        </div>
+                                        <div className={styles.col}>
+                                            <label className={styles.label}>Company/Institute</label>
+                                            <input
+                                                value={item.company}
+                                                onChange={(e) => updateItem('timeline', item.id, 'company', e.target.value)}
+                                                className={styles.input}
+                                                placeholder="Company Name"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className={styles.fieldGroup}>
+                                        <label className={styles.label}>Description</label>
+                                        <textarea
+                                            value={item.desc}
+                                            onChange={(e) => updateItem('timeline', item.id, 'desc', e.target.value)}
+                                            className={styles.textarea}
+                                            placeholder="Describe your role and achievements..."
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+                            <button onClick={() => addItem('timeline')} className={styles.addButton}>
+                                <Plus size={20} /> Add Timeline Item
                             </button>
                         </>
                     )}

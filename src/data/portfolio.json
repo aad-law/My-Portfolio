@@ -6,62 +6,144 @@
   },
   "projects": [
     {
-      "id": "6",
-      "title": "Markdown Blog Engine",
-      "description": "Lightweight blog platform with markdown support, syntax highlighting, and RSS feeds.",
-      "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&h=400&fit=crop",
+      "id": "1767882892807",
+      "title": "News Website",
+      "description": "A responsive news website that displays the latest updates based on user-selected categories like sports, politics, and top headlines.",
+      "link": "#",
+      "image": "/uploads/1767882974617_Screenshot_2025-04-17_164913.png",
       "tags": [
-        "Node.js",
-        "Express",
-        "Markdown"
+        "React",
+        "Api",
+        "Bootstrap",
+        "Javascript"
       ],
-      "github": "https://github.com/aad-law/blog",
-      "demo": "https://demo.example.com",
-      "category": "JavaScript",
-      "link": "https://demo.example.com"
+      "github": "https://github.com/aad-law/WneWs"
     },
     {
-      "id": "1767429260618",
-      "title": "VBanner",
-      "description": "Project description...wsdfghjkdufyukb dk uig uidh",
-      "link": "#kdbkbikd",
-      "image": "/uploads/1767429277804_Screenshot_2024-04-22_190153.png",
+      "id": "1767883541469",
+      "title": "Retext – Text Utility",
+      "description": "A simple text manipulation web app that allows users to format text instantly, such as converting text to uppercase with one click.",
+      "link": "#",
+      "image": "/uploads/1767884354521_Screenshot_2026-01-08_202852.png",
       "tags": [
-        "React"
+        "React",
+        "Api",
+        "Bootstrap"
       ],
-      "github": "kdvbkdb/.com d iodh"
+      "github": "https://github.com/aad-law/ReText"
+    },
+    {
+      "id": "1767884396539",
+      "title": "Portfolio Website",
+      "description": "My personal portfolio website showcasing my projects, skills, and professional profile.",
+      "link": "https://aadlaw.netlify.app/",
+      "image": "/uploads/1767884477092_Screenshot_2026-01-08_203107.png",
+      "tags": [
+        "Next.js",
+        "Resend",
+        "Git",
+        "GitHub",
+        "JavaScript",
+        "Tailwind",
+        "Api"
+      ],
+      "github": "https://github.com/aad-law/My-Portfolio"
+    },
+    {
+      "id": "1767884852919",
+      "title": "Sanjivani-studio",
+      "description": "A real-time photo studio website where users can contact the studio directly and view a gallery of their photography work.",
+      "link": "https://sanjivani-studio.netlify.app/",
+      "image": "/uploads/1767884895217_Screenshot_2025-12-31_141528.png",
+      "tags": [
+        "React",
+        "Emailjs",
+        "Api",
+        "Cloudinary",
+        "Git",
+        "Github"
+      ],
+      "github": "https://github.com/aad-law/sanjivani-studio"
     }
   ],
   "skills": [
     {
-      "id": "1",
-      "name": "Next.js",
-      "level": "Advanced"
+      "id": "1767887058741",
+      "name": "Web Development",
+      "icon": "globe"
     },
     {
-      "id": "2",
-      "name": "React",
-      "level": "Advanced"
+      "id": "1767887291133",
+      "name": "Frontend",
+      "icon": "monitor"
     },
     {
-      "id": "3",
-      "name": "JavaScript",
-      "level": "Expert"
+      "id": "1767887291312",
+      "name": "Backend",
+      "icon": "server"
     },
     {
-      "id": "4",
-      "name": "CSS/Tailwind",
-      "level": "Advanced"
-    },
-    {
-      "id": "1767811615252",
+      "id": "1767887291479",
       "name": "Java",
-      "level": "Advanced"
+      "icon": "coffee"
+    },
+    {
+      "id": "1767887291649",
+      "name": "JavaScript",
+      "icon": "js-square"
+    },
+    {
+      "id": "1767887292580",
+      "name": "SQL",
+      "icon": "database"
+    },
+    {
+      "id": "1767887292755",
+      "name": "Spring",
+      "icon": "leaf"
+    },
+    {
+      "id": "1767887292915",
+      "name": "Spring Boot",
+      "icon": "rocket"
+    },
+    {
+      "id": "1767887293073",
+      "name": "React",
+      "icon": "atom"
+    },
+    {
+      "id": "1767888160289",
+      "name": "API",
+      "icon": "Zap"
     }
   ],
   "github": {
     "username": "aad-law",
     "themeColor": "#0cac49",
     "showStats": true
-  }
+  },
+  "timeline": [
+    {
+      "id": "1767886168859",
+      "date": "2024 — 2025",
+      "title": "Flutter developer",
+      "company": "Reyank Technology (Internship)",
+      "desc": "I completed a 3-month internship at Reyank Tech as a Flutter Developer, where I worked on building and improving mobile applications using Flutter. This experience helped me strengthen my app development skills and gain real-world project exposure."
+    },
+    {
+      "id": "1767886351485",
+      "date": "2025 — 2026",
+      "title": "Qspider",
+      "company": "Student",
+      "desc": "I am currently pursuing training at QSpiders in the Full Stack Java course. In this program, I am learning Java, SQL, Spring, Spring Boot, React, JavaScript, HTML, and CSS. This training is helping me build strong full-stack development skills and gain a practical understanding of modern web technologies, preparing me to develop robust and efficient web applications."
+    },
+    {
+      "id": "1767886679266",
+      "date": "2026",
+      "title": "Freelance",
+      "company": "Self-employee",
+      "desc": "I work as a freelance web developer, building responsive and modern websites that help clients achieve their goals. I focus on clean design, smooth functionality, and user-friendly experiences."
+    }
+  ]
 }
