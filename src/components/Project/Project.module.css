@@ -5,7 +5,8 @@
 }
 
 .heroSection {
-    padding: 6rem 2rem 2rem;
+    padding: 8rem 2rem 2rem;
+    /* Increased from 6rem to 8rem for navbar clearance */
     text-align: center;
     background: radial-gradient(circle at top, rgba(0, 0, 0, 0.1) 0%, transparent 70%);
 }
@@ -335,7 +336,8 @@
 
 @media (max-width: 640px) {
     .heroSection {
-        padding-top: 4rem;
+        padding-top: 6rem;
+        /* Increased for navbar clearance on mobile */
     }
 
     .title {
