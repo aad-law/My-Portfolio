@@ -7,6 +7,7 @@ const resend = process.env.RESEND_API_KEY
 
 export async function POST(req) {
   if (!resend) {
+    console.error("Attempted to send email but RESEND_API_KEY is missing or invalid.");
     return NextResponse.json(
       { error: 'Email service not configured' },
       { status: 503 }
