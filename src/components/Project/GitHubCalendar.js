@@ -98,6 +98,12 @@ const GitHubCalendar = ({ username, year, themeColor, onRefresh }) => {
         }
     });
 
+    // Calculate weekly stats for mobile view
+    const weeklyData = weeks.map(week => {
+        return week.reduce((sum, day) => sum + day.count, 0);
+    });
+    const maxWeeklyTotal = Math.max(...weeklyData, 1);
+
     return (
         <div className={`${styles.calendarBox} ${loading ? styles.calendarFaded : ''}`}>
             <div className={styles.topRow}>
@@ -135,21 +141,37 @@ const GitHubCalendar = ({ username, year, themeColor, onRefresh }) => {
                 </div>
 
                 <div className={styles.grid}>
-                    {weeks.map((week, weekIndex) => (
-                        <div key={weekIndex} className={styles.week}>
-                            {week.map((day, dayIndex) => (
+                    {weeks.map((week, weekIndex) => {
+                        const weeklyTotal = weeklyData[weekIndex];
+                        let weeklyLevel = 0;
+                        if (weeklyTotal > 0) {
+                            weeklyLevel = Math.ceil((weeklyTotal / maxWeeklyTotal) * 4);
+                        }
+
+                        return (
+                            <div key={weekIndex} className={styles.week}>
                                 <div
-                                    key={day.date}
-                                    className={styles.day}
+                                    className={styles.mobileWeek}
                                     style={{
-                                        backgroundColor: day.level === 0 ? '#161b22' : themeColor,
-                                        opacity: day.level === 0 ? 1 : day.level * 0.25 + 0.1,
+                                        backgroundColor: weeklyLevel === 0 ? '#161b22' : themeColor,
+                                        opacity: weeklyLevel === 0 ? 1 : weeklyLevel * 0.25 + 0.1,
                                     }}
-                                    title={`${day.count} contributions on ${day.date}`}
+                                    title={`${weeklyTotal} contributions this week`}
                                 />
-                            ))}
-                        </div>
-                    ))}
+                                {week.map((day, dayIndex) => (
+                                    <div
+                                        key={day.date}
+                                        className={styles.day}
+                                        style={{
+                                            backgroundColor: day.level === 0 ? '#161b22' : themeColor,
+                                            opacity: day.level === 0 ? 1 : day.level * 0.25 + 0.1,
+                                        }}
+                                        title={`${day.count} contributions on ${day.date}`}
+                                    />
+                                ))}
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
 
