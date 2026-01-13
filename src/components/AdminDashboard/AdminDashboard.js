@@ -38,6 +38,7 @@ export default function AdminDashboard({ initialData }) {
                 [type]: prev[type].filter(item => item.id !== id)
             }));
         }
+        
     };
 
     const addItem = (type) => {
