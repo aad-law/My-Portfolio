@@ -1,5 +1,6 @@
 /**
- * Simplified Migration Script: Portfolio JSON to Firestore
+ * Fixed Migration Script: Portfolio JSON to Firestore
+ * Properly handles data sanitization for Firestore
  */
 
 import { initializeApp } from 'firebase/app';
@@ -7,11 +8,15 @@ import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Firebase config
+// Load environment variables from .env.local
+dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
+
+// Firebase config from environment
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -24,71 +29,83 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Clean function: replace # with empty string, remove null/undefined
-function clean(obj) {
+// Sanitize data for Firestore
+function sanitize(obj) {
   if (Array.isArray(obj)) {
-    return obj.filter(v => v != null).map(clean);
+    return obj.filter(v => v != null && v !== '').map(sanitize);
   }
+
   if (typeof obj === 'object' && obj !== null) {
     const result = {};
     for (const [key, value] of Object.entries(obj)) {
-      if (value != null) {
-        if (typeof value === 'string' && value === '#') {
-          result[key] = '';
-        } else {
-          result[key] = clean(value);
-        }
+      // Skip null, undefined, and empty strings
+      if (value == null || value === '') continue;
+
+      // Convert '#' to empty string (Firestore doesn't like it)
+      if (value === '#') {
+        result[key] = '';
+      } else if (typeof value === 'object') {
+        result[key] = sanitize(value);
+      } else {
+        result[key] = value;
       }
     }
+
+
     return result;
   }
+
   return obj === '#' ? '' : obj;
 }
 
 async function migrate() {
+  console.log('🚀 Starting Firestore Migration...\n');
+
   try {
-    console.log('🚀 Migrating to Firestore...\n');
-    
+    // Read portfolio.json
     const dataPath = path.join(__dirname, '..', 'src', 'data', 'portfolio.json');
     const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
-    
+
     let success = 0;
     let failed = 0;
 
-    // Projects
-    console.log('📦 Projects...');
-    for (const item of data.projects || []) {
+    // Migrate Projects
+    console.log('📦 Migrating Projects...');
+    for (const project of data.projects || []) {
       try {
-        const { id, ...rest } = item;
-        await setDoc(doc(db, 'projects', id), clean(rest));
-        console.log(`  ✓ ${item.title}`);
+        const { id, ...rest } = project;
+        const cleaned = sanitize(rest);
+        await setDoc(doc(db, 'projects', id), cleaned);
+        console.log(`  ✓ ${project.title}`);
         success++;
       } catch (e) {
-        console.error(`  ✗ ${item.title}: ${e.message}`);
+        console.error(`  ✗ ${project.title}: ${e.message}`);
         failed++;
       }
     }
 
-    // Skills
-    console.log('\n🎯 Skills...');
-    for (const item of data.skills || []) {
+    // Migrate Skills
+    console.log('\n🎯 Migrating Skills...');
+    for (const skill of data.skills || []) {
       try {
-        const { id, ...rest } = item;
-        await setDoc(doc(db, 'skills', id), clean(rest));
-        console.log(`  ✓ ${item.name}`);
+        const { id, ...rest } = skill;
+        const cleaned = sanitize(rest);
+        await setDoc(doc(db, 'skills', id), cleaned);
+        console.log(`  ✓ ${skill.name}`);
         success++;
       } catch (e) {
-        console.error(`  ✗ ${item.name}: ${e.message}`);
+        console.error(`  ✗ ${skill.name}: ${e.message}`);
         failed++;
       }
     }
 
-    // Timeline
-    console.log('\n📅 Timeline...');
+    // Migrate Timeline
+    console.log('\n📅 Migrating Timeline...');
     for (const item of data.timeline || []) {
       try {
         const { id, ...rest } = item;
-        await setDoc(doc(db, 'timeline', id), clean(rest));
+        const cleaned = sanitize(rest);
+        await setDoc(doc(db, 'timeline', id), cleaned);
         console.log(`  ✓ ${item.title}`);
         success++;
       } catch (e) {
@@ -97,12 +114,13 @@ async function migrate() {
       }
     }
 
-    // GitHub
-    console.log('\n🐙 GitHub...');
+    // Migrate GitHub Settings
+    console.log('\n🐙 Migrating GitHub Settings...');
     if (data.github) {
       try {
-        await setDoc(doc(db, 'github', 'settings'), clean(data.github));
-        console.log('  ✓ Settings');
+        const cleaned = sanitize(data.github);
+        await setDoc(doc(db, 'github', 'settings'), cleaned);
+        console.log('  ✓ Settings saved');
         success++;
       } catch (e) {
         console.error(`  ✗ ${e.message}`);
@@ -110,12 +128,13 @@ async function migrate() {
       }
     }
 
-    // Profile
-    console.log('\n👤 Profile...');
+    // Migrate Profile
+    console.log('\n👤 Migrating Profile...');
     if (data.profile) {
       try {
-        await setDoc(doc(db, 'profile', 'info'), clean(data.profile));
-        console.log('  ✓ Info');
+        const cleaned = sanitize(data.profile);
+        await setDoc(doc(db, 'profile', 'info'), cleaned);
+        console.log('  ✓ Profile saved');
         success++;
       } catch (e) {
         console.error(`  ✗ ${e.message}`);
@@ -123,18 +142,28 @@ async function migrate() {
       }
     }
 
-    console.log('\n' + '='.repeat(40));
+    // Summary
+    console.log('\n' + '='.repeat(50));
     console.log(`✅ Success: ${success} | ❌ Failed: ${failed}`);
-    console.log('='.repeat(40));
-    
+    console.log('='.repeat(50));
+
     if (failed === 0) {
-      console.log('\n🎉 Migration complete!');
+      console.log('\n🎉 Migration Complete!');
+      console.log('💡 Your data is now in Firestore.');
+      console.log('\n📝 Next: Update src/lib/api.js to use Firestore');
+    } else {
+      console.log('\n⚠️  Some items failed. Check errors above.');
     }
 
   } catch (error) {
-    console.error('\n❌ Error:', error.message);
+    console.error('\n❌ Fatal Error:', error.message);
     process.exit(1);
   }
 }
 
-migrate().then(() => process.exit(0));
+migrate()
+  .then(() => process.exit(0))
+  .catch(err => {
+    console.error('Error:', err);
+    process.exit(1);
+  });
