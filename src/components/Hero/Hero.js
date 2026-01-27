@@ -11,7 +11,7 @@ export default function Hero({ name, intro }) {
         { name: 'LinkedIn', icon: Linkedin, url: 'https://linkedin.com/in/aadlaw' },
         { name: 'Instagram', icon: Instagram, url: 'https://instagram.com/aadlaw1' },
         { name: 'Email', icon: Mail, url: 'mailto:aadeshlawate19@gmail.com' },
-        { name: 'LeetCode', icon: null, url: 'https://leetcode.com/aad-law' },
+        { name: 'LeetCode', icon: null, url: 'https://leetcode.com/u/aad-law/' },
     ];
 
     return (
